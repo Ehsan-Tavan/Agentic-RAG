@@ -1,0 +1,11 @@
+langchain-core==0.3.29
+langsmith==0.2.10
+pydantic==2.10.4
+pydantic_core==2.27.2
+PyYAML==6.0.2
+langchain_huggingface==0.1.2
+transformers==4.47.1
+sentence-transformers==3.3.1
+torch==2.5.1
+langchain_milvus==0.1.7
+pymilvus==2.5.3
