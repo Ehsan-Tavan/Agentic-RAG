@@ -9,3 +9,6 @@ sentence-transformers==3.3.1
 torch==2.5.1
 langchain_milvus==0.1.7
 pymilvus==2.5.3
+langchain_openai==0.2.14
+openai==1.59.3
+milvus-model==0.2.11
