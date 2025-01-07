@@ -1,4 +1,5 @@
-from ..state import State
+from Simple_Rag.src.graph.state import State
+from Simple_Rag.src.retriever import create_retriever_chain
 
 
 class RetrieverNode:
@@ -11,3 +12,6 @@ class RetrieverNode:
         }
 
 
+def get_retriever_node(retriever_model_config, vector_db_config):
+    retriever_chain = create_retriever_chain(retriever_model_config)
+    return RetrieverNode(retriever_chain(vector_db_config))
