@@ -12,3 +12,6 @@ pymilvus==2.5.3
 langchain_openai==0.2.14
 openai==1.59.3
 milvus-model==0.2.11
+langgraph==0.2.60
+langchain==0.3.14
+langchain==community-0.3.14
