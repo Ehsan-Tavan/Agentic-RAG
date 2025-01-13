@@ -6,8 +6,7 @@ from .nodes import get_retriever_node, get_answer_generation_node
 
 def create_graph(config):
     workflow = StateGraph(State)
-    retriever_node = get_retriever_node(retriever_model_config=config["retriever"]["embedding_model"],
-                                        vector_db_config=config["retriever"]["vector_db"])
+    retriever_node = get_retriever_node(retriever_config=config["retriever"])
     answer_generation_node = get_answer_generation_node(llm_config=config["generative_model"])
 
     workflow.add_node("retriever", retriever_node)
@@ -21,10 +20,10 @@ def create_graph(config):
 
     app = workflow.compile(debug=False)
 
-    plot = app.get_graph().draw_mermaid_png()
-
-    with open("plot.png", "wb") as fp:
-        fp.write(plot)
+    # plot = app.get_graph().draw_mermaid_png()
+    #
+    # with open("plot.png", "wb") as fp:
+    #     fp.write(plot)
 
     return app
 
