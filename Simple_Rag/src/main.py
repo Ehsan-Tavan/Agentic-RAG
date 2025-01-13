@@ -19,7 +19,8 @@ def process_data(file_path, config):
 
 
 def initialize_vector_db(config, chunks):
-    vector_db = MilvusHandler(config["vector_db"], config["retriever"]["embedding_model"])
+    vector_db = MilvusHandler(vector_db_config=config["retriever"]["vector_db"],
+                              retriever_model_config=config["retriever"]["embedding_model"])
     vector_db.create_collection()
     vector_db.insert_documents(chunks)
 
