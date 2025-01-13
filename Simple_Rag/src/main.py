@@ -2,7 +2,7 @@ import argparse
 import yaml
 
 from Simple_Rag.src.graph import create_graph
-from Simple_Rag.src.vector_db import MilvusManager
+from Simple_Rag.src.vector_store import MilvusHandler
 from Simple_Rag.src.data_loader import get_data_loader, get_chunker
 
 
@@ -19,15 +19,17 @@ def process_data(file_path, config):
 
 
 def initialize_vector_db(config, chunks):
-    vector_db = MilvusManager(config["vector_db"], config["retriever"]["embedding_model"])
-    vector_db.insert_chunked_data(chunks)
+    vector_db = MilvusHandler(config["vector_db"], config["retriever"]["embedding_model"])
+    vector_db.create_collection()
+    vector_db.insert_documents(chunks)
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-c", "--config", required=True, type=str, help="Config file path")
     parser.add_argument("-f", "--file_path", default=None, type=str, help="Knowledgebase file path")
-    parser.add_argument("-l", "--is_loading", action='store_true', help="Load data into vector DB")
+    parser.add_argument("-l", "--is_loading", action='store_true',
+                        default=True, help="Load data into vector DB")
     args = parser.parse_args()
 
     config = load_config(args.config)
