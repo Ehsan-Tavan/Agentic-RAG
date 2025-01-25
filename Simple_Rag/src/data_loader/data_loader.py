@@ -5,6 +5,15 @@ from markitdown import MarkItDown
 
 
 def is_valid_file(file_path: str) -> bool:
+    """
+    Check if a given file path corresponds to a valid file type.
+
+    Args:
+        file_path: The path to the file.
+
+    Returns:
+        True if the file extension is valid, False otherwise.
+    """
     valid_extensions = {".docx", ".pdf"}  # Using a set for faster lookups
     _, extension = os.path.splitext(file_path)
     return extension.lower() in valid_extensions
