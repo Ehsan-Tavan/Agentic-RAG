@@ -20,9 +20,29 @@ def is_valid_file(file_path: str) -> bool:
 
 
 def get_data_loader() -> Callable[[str], List[Document]]:
+    """
+    Create a data loader function to process valid files into LangChain Document objects.
+
+    Returns:
+        A function that takes a file path as input,
+        validates the file, converts its content using MarkItDown,
+        and returns it as a list of Document objects.
+    """
     md = MarkItDown()
 
     def _loader(file_path: str) -> List[Document]:
+        """
+        Load and process the content of a file into a list of Document objects.
+
+        Args:
+            file_path: The path to the file to be processed.
+
+        Returns:
+            A list containing a single Document with the file's text content.
+
+        Raises:
+            ValueError: If the file type is not valid.
+        """
         if not is_valid_file(file_path):
             raise ValueError("Invalid file type. Only DOCX and PDF files are allowed.")
         loaded_file = md.convert(file_path)
