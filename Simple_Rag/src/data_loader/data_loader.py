@@ -6,7 +6,8 @@ from markitdown import MarkItDown
 
 def is_valid_file(file_path: str) -> bool:
     valid_extensions = {".docx", ".pdf"}  # Using a set for faster lookups
-    return os.path.splitext(file_path)[1].lower() in valid_extensions
+    _, extension = os.path.splitext(file_path)
+    return extension.lower() in valid_extensions
 
 
 def get_data_loader() -> Callable[[str], List[Document]]:
