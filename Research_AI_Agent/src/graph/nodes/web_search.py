@@ -4,8 +4,9 @@ from Research_AI_Agent.src.graph.helper import run_search_queries, format_search
 
 
 class WebSearchNode:
-    def __init__(self, num_results, include_raw_content):
+    def __init__(self, num_results, max_tokens, include_raw_content):
         self.num_results = num_results
+        self.max_tokens = max_tokens
         self.include_raw_content = include_raw_content
 
     async def __call__(self, state: ReportState) -> Dict[str, str]:
@@ -22,6 +23,7 @@ class WebSearchNode:
         else:
             search_context = format_search_query_results(
                 search_docs,
+                max_tokens=self.max_tokens,
                 include_raw_content=self.include_raw_content
             )
 
