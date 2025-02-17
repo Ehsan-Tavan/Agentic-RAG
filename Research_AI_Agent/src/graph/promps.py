@@ -69,3 +69,32 @@ def generate_report_plan_sections_prompt_creator(report_organization) -> ChatPro
              "the web search context to enhance the section planning.")
         ]
     )
+
+
+def generate_section_research_queries_prompt_creator(number_of_queries: int) -> ChatPromptTemplate:
+    return ChatPromptTemplate(
+        [
+            ("system",
+             "You are an expert in technical research, skilled in crafting precise and targeted search queries to "
+             "gather relevant information.\n\n"
+             "Your task is to generate targeted web search queries that will help collect comprehensive information "
+             "for writing a technical report section.\n\n"
+             "When generating search queries, ensure that they:\n"
+             "  1. Cover different aspects of the section topic (e.g., technical details, real-world applications, "
+             "comparisons, challenges).\n"
+             "  2. Include specific technical terms relevant to the topic.\n"
+             "  3. Target recent information by including year markers where relevant (e.g., '2024')"
+             "  4. Look for comparisons or differentiators from similar technologies/approaches.\n"
+             "  5. Search for both official documentation and practical implementation examples.\n\n"
+             f"Generate {number_of_queries} well-formed search queries based on the section description.\n\n"
+             "The search queries should be:\n"
+             "- Specific enough to avoid generic results.\n"
+             "- Technical enough to capture detailed implementation information\n"
+             "- Diverse enough to cover all aspects of the section plan\n"
+             "- Focused on authoritative sources (documentation, technical blogs, academic papers)\n"
+             ),
+            ("user",
+             "Section Topic: {section_topic}\n\n"
+             "Generate a diverse and targeted set of search queries for this section.")
+        ]
+    )
