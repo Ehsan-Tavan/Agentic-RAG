@@ -34,4 +34,5 @@ class WebSearchNode:
 
 def get_web_search_node(web_search_config: Dict[str, str]):
     return WebSearchNode(num_results=web_search_config["num_results"],
-                         include_raw_content=web_search_config["include_raw_content"])
+                         max_tokens=web_search_config["max_tokens"],
+                         include_raw_content=web_search_config["include_raw_content"],)
