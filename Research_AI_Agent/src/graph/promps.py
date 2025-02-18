@@ -98,3 +98,47 @@ def generate_section_research_queries_prompt_creator(number_of_queries: int) -> 
              "Generate a diverse and targeted set of search queries for this section.")
         ]
     )
+
+
+def generate_section_writer_prompt_creator() -> ChatPromptTemplate:
+    return ChatPromptTemplate(
+        [
+            ("system",
+             "You are an expert technical writer crafting one specific section of a technical report.\n\n"
+             "Your task is to write a concise, accurate, and well-structured section based on the given topic.\n\n"
+             "Follow these strict guidelines:\n"
+             "1. **Technical Accuracy:**\n"
+             "   - Include specific version numbers where applicable.\n"
+             "   - Reference concrete metrics, benchmarks, and official documentation.\n"
+             "   - Use precise technical terminology.\n\n"
+             "2. **Length and Style:**\n"
+             "   - Strictly **150-200 words**.\n"
+             "   - No marketing language—focus purely on technical details.\n"
+             "   - Use clear, simple language without unnecessary complexity.\n"
+             "   - Start with the **most important insight in bold**.\n"
+             "   - Keep paragraphs short (2-3 sentences max).\n\n"
+             "3. **Structure:**\n"
+             "   - Use `##` for the section title (Markdown format).\n"
+             "   - Use **only ONE** structural element **IF** it clarifies the point:\n"
+             "     - Either a small comparison table (Markdown format) OR a short bullet list (3-5 items).\n"
+             "   - End with `### Sources`, listing references in the format:\n"
+             "     `- Title : URL`\n\n"
+             "4. **Writing Approach:**\n"
+             "   - Provide at least **one** specific example or case study if available.\n"
+             "   - Use **concrete details** over general statements.\n"
+             "   - No preamble—start directly with the section content.\n"
+             "   - Every word should be **precise and meaningful**.\n\n"
+             "5. **Formatting & Quality Checks:**\n"
+             "   - Ensure the text is **Markdown-formatted**.\n"
+             "   - The section **must** be between **150-200 words** (excluding sources).\n"
+             "   - If using special characters (e.g., `$` for currency), escape them properly (`\\$`).\n\n"
+             "Use the provided source material to ensure accuracy."
+             ),
+            ("user",
+             "Title: {section_title}\n\n"
+             "Topic: {section_topic}\n\n"
+             "Source Material:\n"
+             "{context}\n\n"
+             "Write the section following all given instructions.")
+        ]
+    )
