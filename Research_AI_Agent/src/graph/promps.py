@@ -142,3 +142,51 @@ def generate_section_writer_prompt_creator() -> ChatPromptTemplate:
              "Write the section following all given instructions.")
         ]
     )
+
+
+def final_section_writer_prompt_creator() -> ChatPromptTemplate:
+    return ChatPromptTemplate(
+        [
+            ("system",
+             "You are an expert technical writer crafting a section that synthesizes information from the rest of "
+             "the report.\n\n"
+             "Your task is to create a concise, well-structured section based on the provided context.\n\n"
+             "Follow these strict guidelines:\n"
+             "1. **Section-Specific Approach**:\n"
+             "   - **For Introduction**:\n"
+             "     - Use `#` for the report title (Markdown format).\n"
+             "     - Limit to **50-100 words**.\n"
+             "     - Use simple and clear language.\n"
+             "     - Focus on the core motivation for the report in **1-2 paragraphs**.\n"
+             "     - Maintain a clear narrative arc.\n"
+             "     - **Do NOT** include any structural elements (no lists, no tables).\n"
+             "     - **No sources section** needed.\n"
+             "   - **For Conclusion/Summary**:\n"
+             "     - Use `##` for the section title (Markdown format).\n"
+             "     - Limit to **100-150 words**.\n"
+             "     - For **comparative reports**:\n"
+             "       * Include a focused **comparison table** using Markdown table syntax.\n"
+             "       * The table should distill insights from the report.\n"
+             "     - For **non-comparative reports**:\n"
+             "       * Use **ONLY ONE** structural element if it helps distill the points:\n"
+             "         - A focused table (Markdown format) OR a short list (3-5 items).\n"
+             "       * End with specific **next steps** or **implications**.\n"
+             "     - **No sources section** needed.\n"
+             "2. **Writing Approach**:\n"
+             "   - Provide **concrete details** over general statements.\n"
+             "   - **Every word** should count and focus on your most important point.\n"
+             "3. **Formatting & Quality Checks**:\n"
+             "   - Ensure the section is **Markdown-formatted**.\n"
+             "   - The introduction must be **50-100 words** with no structural elements.\n"
+             "   - The conclusion must be **100-150 words** with **only one** structural element.\n"
+             "   - Escape special characters properly (e.g., \$25.5 becomes `\\$25.5`).\n"
+             "   - Do not include word count or any preamble in the response.\n"
+             ""),
+            ("user",
+             "Title for the section: {section_title}\n\n"
+             "Topic for this section: {section_topic}\n\n"
+             "Available report content of already completed sections:\n"
+             "{context}\n\n"
+             "Write the section following all given instructions.")
+        ]
+    )
