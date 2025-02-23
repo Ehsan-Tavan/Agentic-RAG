@@ -1,14 +1,14 @@
 from Research_AI_Agent.src.graph.state import ReportState
 
 
-def compile_final_report(state: ReportState):
+def get_final_report_compiler_node(state: ReportState):
     """ Compile the final report """
 
     # Get sections
     sections = state["sections"]
     completed_sections = {s.name: s.content for s in state["completed_sections"]}
 
-    print('--- Compiling Final Report ---')
+    print("--- Compiling Final Report ---")
 
     # Update sections with completed content while maintaining original order
     for section in sections:
@@ -23,10 +23,11 @@ def compile_final_report(state: ReportState):
     formatted_sections = formatted_sections.replace(
         "$", "\\$"
     )  # Escape all $
-    formatted_sections = formatted_sections.replace("TEMP_PLACEHOLDER", "\\$")  # Restore originally escaped $
+    formatted_sections = formatted_sections.replace(
+        "TEMP_PLACEHOLDER", "\\$"
+    )  # Restore originally escaped $
 
     # Now escaped_sections contains the properly escaped Markdown text
-
-    print('--- Compiling Final Report Done ---')
+    print("--- Compiling Final Report Done ---")
 
     return {"final_report": formatted_sections}
