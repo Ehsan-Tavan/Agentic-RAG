@@ -3,6 +3,7 @@ from langgraph.graph import StateGraph, START, END
 from langgraph.constants import Send
 
 from .state import ReportState, ReportStateInput, ReportStateOutput
+from .nodes.generate_topic_research_queries import get_generate_topic_research_queries_node
 from .nodes.report_plan_section_generator import get_generate_report_plan_sections_node
 from .section_builder_agent import create_section_builder_sub_agent
 from .nodes.section_formatter import get_section_formatter_node
@@ -32,19 +33,22 @@ def parallelize_final_section_writing(state: ReportState):
 
 def create_reporter_agent(config: Dict[str, Union[str, int, float, Dict[str, str]]],
                           tavily_search):
+    generate_topic_research_queries_node = get_generate_topic_research_queries_node(model_config=config["model_config"])
     generate_report_plan_node = get_generate_report_plan_sections_node(model_config=config["model_config"])
     section_builder_agent = create_section_builder_sub_agent(config=config, tavily_search=tavily_search)
     section_formatter_node = get_section_formatter_node()
     final_section_writer_node = get_final_section_writer_node(model_config=config["model_config"])
 
     builder = StateGraph(state_schema=ReportState, input=ReportStateInput, output=ReportStateOutput)
+    builder.add_node("generate_topic_research_queries", generate_topic_research_queries_node)
     builder.add_node("generate_report_plan", generate_report_plan_node)
     builder.add_node("section_builder_with_web_search", section_builder_agent)
     builder.add_node("format_completed_sections", section_formatter_node)
     builder.add_node("write_final_sections", final_section_writer_node)
     builder.add_node("compile_final_report", get_final_report_compiler_node)
 
-    builder.add_edge(START, "generate_report_plan")
+    builder.add_edge(START, "generate_topic_research_queries")
+    builder.add_edge("generate_topic_research_queries", "generate_report_plan")
 
     builder.add_conditional_edges("generate_report_plan",
                                   parallelize_section_writing,
