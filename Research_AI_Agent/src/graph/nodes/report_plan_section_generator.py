@@ -1,5 +1,5 @@
 from typing import Dict
-from Research_AI_Agent.src.graph.promps import generate_report_plan_sections_prompt_creator, REPORT_ORGANIZATION
+from Research_AI_Agent.src.graph.promps import generate_report_plan_sections_prompt_creator, REPORT_STRUCTURE
 from Research_AI_Agent.src.graph.helper import load_model
 from Research_AI_Agent.src.graph.structures import Sections
 from Research_AI_Agent.src.graph.state import ReportState
@@ -22,7 +22,7 @@ class GenerateReportPlanSectionNode:
 
 
 def get_generate_report_plan_sections_chain(model_config: Dict[str, str]):
-    prompt_template = generate_report_plan_sections_prompt_creator(report_organization=REPORT_ORGANIZATION)
+    prompt_template = generate_report_plan_sections_prompt_creator(report_organization=REPORT_STRUCTURE)
     llm = load_model(model_config)
     structured_llm = llm.with_structured_output(Sections)
     chain = prompt_template | structured_llm

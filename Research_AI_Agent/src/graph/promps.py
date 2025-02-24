@@ -1,26 +1,26 @@
 from langchain_core.prompts import ChatPromptTemplate
 
-REPORT_ORGANIZATION = """You are an expert technical report writer, helping to plan a report.
+REPORT_STRUCTURE = """The report structure should focus on breaking-down the user-provided topic
+                      and building a comprehensive report in markdown using the following format:
 
-The report will be focused on the following topic:
-{topic}
+                      1. Introduction (no web search needed)
+                            - Brief overview of the topic area
 
-The report structure will follow these guidelines:
-{report_organization}
+                      2. Main Body Sections:
+                            - Each section should focus on a sub-topic of the user-provided topic
+                            - Include any key concepts and definitions
+                            - Provide real-world examples or case studies where applicable
 
-Your goal is to generate {number_of_queries} search queries that will help gather comprehensive information for 
-planning the report sections.
+                      3. Conclusion (no web search needed)
+                            - Aim for 1 structural element (either a list of table) that distills the main body sections
+                            - Provide a concise summary of the report
 
-The query should:
-1. Be related to the topic
-2. Help satisfy the requirements specified in the report organization
-
-Make the query specific enough to find high-quality, relevant sources while covering the depth and breadth needed 
-for the report structure.
-"""
+                      When generating the final response in markdown, if there are special characters in the text,
+                      such as the dollar symbol, ensure they are escaped properly for correct rendering e.g $25.5 should become \$25.5
+                  """
 
 
-def generate_report_plan_prompt_creator(
+def generate_topic_research_queries_prompt_creator(
         number_of_queries: int,
         report_organization: str
 ) -> ChatPromptTemplate:
