@@ -6,12 +6,14 @@ from .nodes.web_search import get_web_search_node
 from .nodes.section_writer import get_section_writer_node
 
 
-def create_section_builder_sub_agent(config: Dict[str, Union[str, int, float, Dict[str, str]]]):
+def create_section_builder_sub_agent(config: Dict[str, Union[str, int, float, Dict[str, str]]],
+                                     tavily_search):
     generate_queries_node = get_generate_section_research_queries_node(
         model_config=config["model_config"],
         number_of_queries=config["number_of_queries"])
 
-    search_web_node = get_web_search_node(web_search_config=config["web_search_config"])
+    search_web_node = get_web_search_node(web_search_config=config["web_search_config"],
+                                          tavily_search=tavily_search)
     write_section_node = get_section_writer_node(model_config=config["model_config"])
 
     section_builder = StateGraph(SectionState, output=SectionOutputState)

@@ -4,11 +4,8 @@ import asyncio
 import tiktoken
 from langchain_openai import ChatOpenAI
 from langchain_openai.chat_models.base import BaseChatOpenAI
-from langchain_community.utilities.tavily_search import TavilySearchAPIWrapper
 
 from Research_AI_Agent.src.graph.structures import SearchQuery
-
-TAVILY_SEARCH = TavilySearchAPIWrapper()
 
 
 def load_model(model_config) -> BaseChatOpenAI:
@@ -23,6 +20,7 @@ def load_model(model_config) -> BaseChatOpenAI:
 
 
 async def run_search_queries(
+        tavily_search,
         search_queries: List[Union[str, SearchQuery]],
         num_results: int = 5,
         include_raw_content: bool = False
@@ -39,7 +37,7 @@ async def run_search_queries(
         try:
             # get results from tavily asynchronously (in parallel) for each search query
             search_tasks.append(
-                TAVILY_SEARCH.raw_results_async(
+                tavily_search.raw_results_async(
                     query=query_str,
                     max_results=num_results,
                     search_depth="advanced",
