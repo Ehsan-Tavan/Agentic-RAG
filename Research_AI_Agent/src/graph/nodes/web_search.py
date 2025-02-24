@@ -1,5 +1,5 @@
 from typing import Dict
-from Research_AI_Agent.src.graph.state import ReportState
+from Research_AI_Agent.src.graph.state import ReportState, SectionState
 from Research_AI_Agent.src.graph.helper import run_search_queries, format_search_query_results
 
 
@@ -10,7 +10,7 @@ class WebSearchNode:
         self.include_raw_content = include_raw_content
         self.tavily_search = tavily_search
 
-    async def __call__(self, state: ReportState) -> Dict[str, str]:
+    async def __call__(self, state: ReportState | SectionState) -> Dict[str, str]:
         print(" --- Performing Web Search --- ")
         query_list = state["research_queries"]
         search_docs = await run_search_queries(
