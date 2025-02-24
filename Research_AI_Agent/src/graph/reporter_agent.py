@@ -30,9 +30,10 @@ def parallelize_final_section_writing(state: ReportState):
     ]
 
 
-def create_reporter_agent(config: Dict[str, Union[str, int, float, Dict[str, str]]]):
+def create_reporter_agent(config: Dict[str, Union[str, int, float, Dict[str, str]]],
+                          tavily_search):
     generate_report_plan_node = get_generate_report_plan_sections_node(model_config=config["model_config"])
-    section_builder_agent = create_section_builder_sub_agent(config=config)
+    section_builder_agent = create_section_builder_sub_agent(config=config, tavily_search=tavily_search)
     section_formatter_node = get_section_formatter_node()
     final_section_writer_node = get_final_section_writer_node(model_config=config["model_config"])
 

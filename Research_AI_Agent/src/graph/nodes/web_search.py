@@ -4,16 +4,18 @@ from Research_AI_Agent.src.graph.helper import run_search_queries, format_search
 
 
 class WebSearchNode:
-    def __init__(self, num_results, max_tokens, include_raw_content):
+    def __init__(self, num_results, max_tokens, include_raw_content, tavily_search):
         self.num_results = num_results
         self.max_tokens = max_tokens
         self.include_raw_content = include_raw_content
+        self.tavily_search = tavily_search
 
     async def __call__(self, state: ReportState) -> Dict[str, str]:
         print(" --- Performing Web Search --- ")
         query_list = state["research_queries"]
         search_docs = await run_search_queries(
-            query_list,
+            tavily_search=self.tavily_search,
+            search_queries=query_list,
             num_results=self.num_results,
             include_raw_content=self.include_raw_content
         )
@@ -32,7 +34,8 @@ class WebSearchNode:
         }
 
 
-def get_web_search_node(web_search_config: Dict[str, str]):
+def get_web_search_node(web_search_config: Dict[str, str], tavily_search):
     return WebSearchNode(num_results=web_search_config["num_results"],
                          max_tokens=web_search_config["max_tokens"],
-                         include_raw_content=web_search_config["include_raw_content"],)
+                         include_raw_content=web_search_config["include_raw_content"],
+                         tavily_search=tavily_search)
