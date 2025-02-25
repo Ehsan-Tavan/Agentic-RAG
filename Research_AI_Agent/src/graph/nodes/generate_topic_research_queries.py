@@ -1,23 +1,27 @@
-from typing import Dict
+from typing import Dict, List
 
 from Research_AI_Agent.src.graph.state import ReportState
 from Research_AI_Agent.src.graph.promps import generate_topic_research_queries_prompt_creator, REPORT_STRUCTURE
 from Research_AI_Agent.src.graph.helper import load_model
-from Research_AI_Agent.src.graph.structures import Queries
+from Research_AI_Agent.src.graph.structures import Queries, SearchQuery
 
 
 class GenerateTopicResearchQueriesNode:
     def __init__(self, chain):
         self.chain = chain
 
-    def __call__(self, state: ReportState) -> Dict[str, Queries]:
+    def __call__(self, state: ReportState) -> Dict[str, List[str]]:
         print(" --- Generating Topic Research Queries --- ")
         topic = state["topic"]
 
         research_queries = self.chain.invoke({"topic": topic})
+        query_list = [
+            query.search_query if isinstance(query, SearchQuery) else str(query)
+            for query in research_queries.queries
+        ]
 
         return {
-            "research_queries": research_queries
+            "research_queries": query_list
         }
 
 
