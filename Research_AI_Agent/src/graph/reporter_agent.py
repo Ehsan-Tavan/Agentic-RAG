@@ -9,6 +9,7 @@ from .section_builder_agent import create_section_builder_sub_agent
 from .nodes.section_formatter import get_section_formatter_node
 from .nodes.finalize_sections_content import get_final_section_writer_node
 from .nodes.final_report_compiler import get_final_report_compiler_node
+from .nodes.web_search import get_web_search_node
 
 
 def parallelize_section_writing(state: ReportState):
@@ -34,6 +35,8 @@ def parallelize_final_section_writing(state: ReportState):
 def create_reporter_agent(config: Dict[str, Union[str, int, float, Dict[str, str]]],
                           tavily_search):
     generate_topic_research_queries_node = get_generate_topic_research_queries_node(model_config=config["model_config"])
+    web_search_node = get_web_search_node(web_search_config=config["web_search_config"],
+                                          tavily_search=tavily_search)
     generate_report_plan_node = get_generate_report_plan_sections_node(model_config=config["model_config"])
     section_builder_agent = create_section_builder_sub_agent(config=config, tavily_search=tavily_search)
     section_formatter_node = get_section_formatter_node()
@@ -41,6 +44,7 @@ def create_reporter_agent(config: Dict[str, Union[str, int, float, Dict[str, str
 
     builder = StateGraph(state_schema=ReportState, input=ReportStateInput, output=ReportStateOutput)
     builder.add_node("generate_topic_research_queries", generate_topic_research_queries_node)
+    builder.add_node("web_search", web_search_node)
     builder.add_node("generate_report_plan", generate_report_plan_node)
     builder.add_node("section_builder_with_web_search", section_builder_agent)
     builder.add_node("format_completed_sections", section_formatter_node)
@@ -48,6 +52,7 @@ def create_reporter_agent(config: Dict[str, Union[str, int, float, Dict[str, str
     builder.add_node("compile_final_report", get_final_report_compiler_node)
 
     builder.add_edge(START, "generate_topic_research_queries")
+    builder.add_edge("generate_topic_research_queries", "web_search")
     builder.add_edge("generate_topic_research_queries", "generate_report_plan")
 
     builder.add_conditional_edges("generate_report_plan",
