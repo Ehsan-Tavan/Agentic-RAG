@@ -53,7 +53,7 @@ def create_reporter_agent(config: Dict[str, Union[str, int, float, Dict[str, str
 
     builder.add_edge(START, "generate_topic_research_queries")
     builder.add_edge("generate_topic_research_queries", "web_search")
-    builder.add_edge("generate_topic_research_queries", "generate_report_plan")
+    builder.add_edge("web_search", "generate_report_plan")
 
     builder.add_conditional_edges("generate_report_plan",
                                   parallelize_section_writing,
@@ -67,8 +67,8 @@ def create_reporter_agent(config: Dict[str, Union[str, int, float, Dict[str, str
 
     reporter_agent = builder.compile()
 
-    plot = reporter_agent.get_graph(xray=True).draw_mermaid_png()
-    with open("final_plot.png", "wb") as fp:
-        fp.write(plot)
+    # plot = reporter_agent.get_graph(xray=True).draw_mermaid_png()
+    # with open("final_plot.png", "wb") as fp:
+    #     fp.write(plot)
 
     return reporter_agent
