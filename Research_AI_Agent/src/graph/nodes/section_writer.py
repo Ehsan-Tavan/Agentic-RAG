@@ -11,8 +11,9 @@ class SectionWriterNode:
         self.chain = chain
 
     def __call__(self, state: SectionState) -> Dict[str, List[Section]]:
+        print(" --- SectionWriterNode --- ")
         section = state["section"]
-        context = state["source_str"]
+        context = state["search_context"]
 
         section_content = self.chain.invoke({
             "section_title": section.section_title,
