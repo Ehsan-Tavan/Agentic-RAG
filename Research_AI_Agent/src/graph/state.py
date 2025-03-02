@@ -23,8 +23,8 @@ class ReportState(TypedDict):
 
 class SectionState(TypedDict):
     section: Section  # Report section
-    search_queries: list[SearchQuery]  # List of search queries
-    source_str: str  # String of formatted source content from web search
+    research_queries: list[SearchQuery]  # List of search queries
+    search_context: str  # String of formatted source content from web search
     report_sections_from_research: str  # String of any completed sections from research to write final sections
     completed_sections: list[Section]  # Final key we duplicate in outer state for Send() API
 

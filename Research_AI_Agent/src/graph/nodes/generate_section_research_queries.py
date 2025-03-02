@@ -18,7 +18,7 @@ class GenerateSectionResearchQueriesNode:
 
         search_queries = self.chain.invoke({"section_topic": section.description})
 
-        return {"search_queries": search_queries.queries}
+        return {"research_queries": search_queries.queries}
 
 
 def get_generate_section_research_queries_chain(model_config: Dict[str, str], number_of_queries: int = 5):
