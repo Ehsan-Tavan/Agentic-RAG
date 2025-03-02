@@ -17,7 +17,7 @@ class GenerateReportPlanSectionNode:
         report_sections = self.chain.invoke({"topic": topic, "search_context": search_context})
 
         return {
-            "sections": report_sections
+            "sections": report_sections.sections
         }
 
 
