@@ -16,8 +16,8 @@ class SectionWriterNode:
         context = state["search_context"]
 
         section_content = self.chain.invoke({
-            "section_title": section.section_title,
-            "section_topic": section.section_topic,
+            "section_title": section.name,
+            "section_topic": section.description,
             "context": context
         })
 
