@@ -1,4 +1,5 @@
 from typing import Dict, Union
+import logging
 from langgraph.graph import StateGraph, START, END
 from langgraph.constants import Send
 
@@ -10,6 +11,8 @@ from .nodes.section_formatter import get_section_formatter_node
 from .nodes.finalize_sections_content import get_final_section_writer_node
 from .nodes.final_report_compiler import get_final_report_compiler_node
 from .nodes.web_search import get_web_search_node
+
+logger = logging.getLogger(__name__)
 
 
 def parallelize_section_writing(state: ReportState):
@@ -34,7 +37,10 @@ def parallelize_final_section_writing(state: ReportState):
 
 def create_reporter_agent(config: Dict[str, Union[str, int, float, Dict[str, str]]],
                           tavily_search):
-    generate_topic_research_queries_node = get_generate_topic_research_queries_node(model_config=config["model_config"])
+    logger.info("Start creating reporter agent.")
+    generate_topic_research_queries_node = get_generate_topic_research_queries_node(
+        model_config=config["model_config"],
+        number_of_queries=config["number_of_queries"])
     web_search_node = get_web_search_node(web_search_config=config["web_search_config"],
                                           tavily_search=tavily_search)
     generate_report_plan_node = get_generate_report_plan_sections_node(model_config=config["model_config"])
