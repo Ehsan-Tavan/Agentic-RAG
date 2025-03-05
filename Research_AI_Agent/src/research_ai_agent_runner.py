@@ -6,7 +6,8 @@ from rich.console import Console
 from rich.markdown import Markdown as RichMarkdown
 from langchain_community.utilities.tavily_search import TavilySearchAPIWrapper
 
-from Research_AI_Agent.src.graph.reporter_agent import create_reporter_agent
+from Research_AI_Agent.src.graph.research_ai_agent import create_reporter_agent
+from Research_AI_Agent.src.utils import create_logger
 
 
 async def call_planner_agent(agent, prompt, config={"recursion_limit": 50}, verbose=False):
@@ -45,7 +46,7 @@ async def main(agent):
 
 
 if __name__ == "__main__":
-
+    logger = create_logger(logger_name="research_ai_agent")
     parser = argparse.ArgumentParser(
         description="Deep Research AI Agent"
     )
@@ -57,6 +58,7 @@ if __name__ == "__main__":
         raise ValueError("The config argument should be set!")
 
     config = yaml.safe_load(open(args.config))
+    logger.debug({"config": config})
 
     os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY", config["model_config"].get("api_key", None))
     os.environ["TAVILY_API_KEY"] = os.getenv("TAVILY_API_KEY", config.get("tavily_api_key", None))
