@@ -47,6 +47,7 @@ def create_reporter_agent(config: Dict[str, Union[str, int, float, Dict[str, str
     section_builder_agent = create_section_builder_sub_agent(config=config, tavily_search=tavily_search)
     section_formatter_node = get_section_formatter_node()
     final_section_writer_node = get_final_section_writer_node(model_config=config["model_config"])
+    final_report_compiler_node = get_final_report_compiler_node()
 
     builder = StateGraph(state_schema=ReportState, input=ReportStateInput, output=ReportStateOutput)
     builder.add_node("generate_topic_research_queries", generate_topic_research_queries_node)
@@ -55,7 +56,7 @@ def create_reporter_agent(config: Dict[str, Union[str, int, float, Dict[str, str
     builder.add_node("section_builder_with_web_search", section_builder_agent)
     builder.add_node("format_completed_sections", section_formatter_node)
     builder.add_node("write_final_sections", final_section_writer_node)
-    builder.add_node("compile_final_report", get_final_report_compiler_node)
+    builder.add_node("compile_final_report", final_report_compiler_node)
 
     builder.add_edge(START, "generate_topic_research_queries")
     builder.add_edge("generate_topic_research_queries", "web_search")
