@@ -1,35 +1,29 @@
 import os
+import sys
 import logging
 import uuid
 from pythonjsonlogger import jsonlogger
 from datetime import datetime
 
 
-def create_logger(logger_name: str) -> logging.Logger:
+def create_logger():
     """
-    Creates and configures a logger with JSON formatting and a unique ID.
-
-    Args:
-        logger_name: The name of the logger to create.
-
-    Returns:
-        A configured logger instance with a unique ID and JSON formatting.
+    Configure the root logger with a JSON format and handlers.
     """
+    logger = logging.getLogger()  # Get the root logger
+    logger.setLevel(logging.INFO)  # Set logging level
 
-    logger = logging.getLogger(logger_name)
-    logger.handlers.clear()
+    # Create a console handler
+    handler = logging.StreamHandler(sys.stdout)
+    handler.setLevel(logging.INFO)
 
+    # Define the JSON format for logs
     formatter = jsonlogger.JsonFormatter(
         "%(asctime)s %(name)s %(levelname)s %(message)s",
         json_ensure_ascii=False
     )
+    handler.setFormatter(formatter)
 
-    stream_handler = logging.StreamHandler()
-    stream_handler.setFormatter(formatter)
-    stream_handler.setLevel("DEBUG")
-
-    logger.addHandler(stream_handler)
-    logger.setLevel("DEBUG")
-
-    logger.id = f"{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}_{uuid.uuid4()}"
-    return logger
+    # Avoid adding multiple handlers if already exists
+    if not logger.hasHandlers():
+        logger.addHandler(handler)
