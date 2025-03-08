@@ -1,4 +1,5 @@
 import os
+import logging
 import argparse
 import yaml
 import asyncio
@@ -46,7 +47,8 @@ async def main(agent):
 
 
 if __name__ == "__main__":
-    logger = create_logger(logger_name="research_ai_agent")
+    create_logger()
+    logger = logging.getLogger(__name__)
     parser = argparse.ArgumentParser(
         description="Deep Research AI Agent"
     )
