@@ -17,7 +17,7 @@ class SectionResearchQueryGenerator:
     def __init__(
             self,
             model_config: Dict[str, str],
-            number_of_queries: int = 5
+            number_of_queries: int
     ):
         """
         Initializes the SectionResearchQueryGenerator with the given model configuration.
@@ -109,7 +109,7 @@ class GenerateSectionResearchQueriesNode:
 
 def get_generate_section_research_queries_node(
         model_config: Dict[str, str],
-        number_of_queries: int = 5
+        number_of_queries: int
 ):
     """
     Creates and returns an instance of GenerateSectionResearchQueriesNode.
