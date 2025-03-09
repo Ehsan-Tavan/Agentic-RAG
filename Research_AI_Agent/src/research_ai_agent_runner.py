@@ -111,7 +111,5 @@ if __name__ == "__main__":
     tavily_search = TavilySearchAPIWrapper()
     bot = create_reporter_agent(config=config, tavily_search=tavily_search)
 
-    ss
-
     # Run the main process
     asyncio.run(main(agent=bot, topic=args.topic, output_path=args.output))
