@@ -2,8 +2,8 @@ from typing import Dict, List, Union
 import logging
 from langchain_community.utilities.tavily_search import TavilySearchAPIWrapper
 
-from Research_AI_Agent.src.graph.state import ReportState, SectionState
-from Research_AI_Agent.src.graph.helper import run_search_queries, format_search_query_results
+from ..state import ReportState, SectionState
+from ..helper import run_search_queries, format_search_query_results
 
 logger = logging.getLogger(__name__)
 
