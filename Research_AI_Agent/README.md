@@ -8,11 +8,11 @@ to streamline their research process.
 
 
 ## Features
-- Dynamic Query Generation: Automatically creates research queries tailored to your topic.
-- Web Search Integration: Uses the Tavily API to fetch up-to-date information from the web.
-- Section-Based Report Writing: Breaks down the report into sections, handling research-heavy and non-research sections separately.
-- Parallel Processing: Speeds up research by processing multiple sections simultaneously.
-- Customizable Workflow: Adjust settings like the number of queries or model parameters to suit your needs.
+- **Dynamic Query Generation:** Automatically creates research queries tailored to your topic.
+- **Web Search Integration:** Uses the Tavily API to fetch up-to-date information from the web.
+- **Section-Based Report Writing:** Breaks down the report into sections, handling research-heavy and non-research sections separately.
+- **Parallel Processing:** Speeds up research by processing multiple sections simultaneously.
+- **Customizable Workflow:** Adjust settings like the number of queries or model parameters to suit your needs.
 
 ## How It Works
 
