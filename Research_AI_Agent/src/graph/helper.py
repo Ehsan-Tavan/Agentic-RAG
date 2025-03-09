@@ -5,7 +5,7 @@ import tiktoken
 from langchain_openai import ChatOpenAI
 from langchain_openai.chat_models.base import BaseChatOpenAI
 
-from Research_AI_Agent.src.graph.structures import SearchQuery
+from .structures import SearchQuery
 
 
 def load_model(model_config) -> BaseChatOpenAI:

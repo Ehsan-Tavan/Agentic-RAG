@@ -1,9 +1,9 @@
 from typing import Dict, List
 import logging
 
-from Research_AI_Agent.src.graph.state import SectionState, Section
-from Research_AI_Agent.src.graph.helper import load_model
-from Research_AI_Agent.src.graph.promps import final_section_writer_prompt_creator
+from ..state import SectionState, Section
+from ..helper import load_model
+from ..promps import final_section_writer_prompt_creator
 
 logger = logging.getLogger(__name__)
 

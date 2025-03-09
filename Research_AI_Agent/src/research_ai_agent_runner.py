@@ -7,8 +7,8 @@ from rich.console import Console
 from rich.markdown import Markdown as RichMarkdown
 from langchain_community.utilities.tavily_search import TavilySearchAPIWrapper
 
-from Research_AI_Agent.src.graph.research_ai_agent import create_reporter_agent
-from Research_AI_Agent.src.utils import create_logger
+from graph.research_ai_agent import create_reporter_agent
+from utils import create_logger
 
 
 async def call_planner_agent(agent,

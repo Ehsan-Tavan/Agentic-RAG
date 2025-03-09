@@ -1,6 +1,6 @@
 from typing import TypedDict, Annotated, List
 import operator
-from Research_AI_Agent.src.graph.structures import Section, SearchQuery
+from .structures import Section, SearchQuery
 
 
 class ReportStateInput(TypedDict):

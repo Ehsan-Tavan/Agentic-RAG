@@ -1,10 +1,10 @@
 from typing import Dict, List
 import logging
 
-from Research_AI_Agent.src.graph.promps import generate_section_writer_prompt_creator
-from Research_AI_Agent.src.graph.helper import load_model
-from Research_AI_Agent.src.graph.state import SectionState
-from Research_AI_Agent.src.graph.structures import Section
+from ..promps import generate_section_writer_prompt_creator
+from ..helper import load_model
+from ..state import SectionState
+from ..structures import Section
 
 logger = logging.getLogger(__name__)
 

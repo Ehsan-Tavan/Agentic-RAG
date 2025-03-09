@@ -1,8 +1,8 @@
 from typing import Dict, Callable
 import logging
 
-from Research_AI_Agent.src.graph.structures import Section
-from Research_AI_Agent.src.graph.state import ReportState
+from ..structures import Section
+from ..state import ReportState
 
 logger = logging.getLogger(__name__)
 
