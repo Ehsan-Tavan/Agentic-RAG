@@ -29,7 +29,7 @@ def create_section_builder_sub_agent(config: Dict[str, Union[str, int, float, Di
     section_builder_agent = section_builder.compile()
 
     plot = section_builder_agent.get_graph().draw_mermaid_png()
-    with open("section_builder_agent.png", "wb") as fp:
+    with open("../images/section_builder_agent.png", "wb") as fp:
         fp.write(plot)
 
     return section_builder_agent
