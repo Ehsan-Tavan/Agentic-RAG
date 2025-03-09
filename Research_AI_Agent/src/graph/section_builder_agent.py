@@ -10,7 +10,7 @@ def create_section_builder_sub_agent(config: Dict[str, Union[str, int, float, Di
                                      tavily_search):
     generate_queries_node = get_generate_section_research_queries_node(
         model_config=config["model_config"],
-        number_of_queries=config["number_of_queries_for_section"])
+        number_of_queries=config["web_search_config"]["number_of_queries_for_section"])
 
     search_web_node = get_web_search_node(web_search_config=config["web_search_config"],
                                           tavily_search=tavily_search)

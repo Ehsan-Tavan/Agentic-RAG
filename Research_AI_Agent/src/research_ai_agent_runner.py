@@ -63,7 +63,8 @@ if __name__ == "__main__":
     logger.debug({"config": config})
 
     os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY", config["model_config"].get("api_key", None))
-    os.environ["TAVILY_API_KEY"] = os.getenv("TAVILY_API_KEY", config.get("tavily_api_key", None))
+    os.environ["TAVILY_API_KEY"] = os.getenv("TAVILY_API_KEY",
+                                             config["web_search_config"].get("tavily_api_key", None))
     tavily_search = TavilySearchAPIWrapper()
 
     bot = create_reporter_agent(config=config, tavily_search=tavily_search)

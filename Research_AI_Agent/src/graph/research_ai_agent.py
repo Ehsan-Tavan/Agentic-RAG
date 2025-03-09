@@ -40,7 +40,7 @@ def create_reporter_agent(config: Dict[str, Union[str, int, float, Dict[str, str
     logger.info("Start creating reporter agent.")
     generate_topic_research_queries_node = get_generate_topic_research_queries_node(
         model_config=config["model_config"],
-        number_of_queries=config["number_of_queries_for_topic"])
+        number_of_queries=config["web_search_config"]["number_of_queries_for_topic"])
     web_search_node = get_web_search_node(web_search_config=config["web_search_config"],
                                           tavily_search=tavily_search)
     generate_report_plan_node = get_generate_report_plan_sections_node(model_config=config["model_config"])
