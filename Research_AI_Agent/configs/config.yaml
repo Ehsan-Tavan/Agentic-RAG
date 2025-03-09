@@ -1,0 +1,34 @@
+model_config:
+  # Name of the model being used.
+  name:
+
+  # Controls the randomness of the model's output.
+  temperature: 0
+
+  # API key for authenticating requests to the model's API.
+  api_key:
+
+  # Base URL for the API endpoint where the model is hosted.
+  base_url:
+
+
+
+
+web_search_config:
+  # API key for the Tavily service, used for web search or data retrieval.
+  tavily_api_key:
+
+  # Number of search queries to search about the topic.
+  number_of_queries_for_topic: 8
+
+  # Number of search queries to search about the section.
+  number_of_queries_for_section: 5
+
+  # Number of search results to return for each query.
+  num_results: 6
+
+  # Whether to include raw content (e.g., full HTML or text) in the search results.
+  include_raw_content: False
+
+  # Maximum number of tokens allowed in the response. This limits the size of the returned content.
+  max_tokens: 4000
