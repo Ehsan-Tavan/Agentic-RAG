@@ -75,7 +75,7 @@ def create_reporter_agent(config: Dict[str, Union[str, int, float, Dict[str, str
     reporter_agent = builder.compile()
 
     plot = reporter_agent.get_graph(xray=True).draw_mermaid_png()
-    with open("final_plot.png", "wb") as fp:
+    with open("research_ai_agent.png", "wb") as fp:
         fp.write(plot)
 
     return reporter_agent
