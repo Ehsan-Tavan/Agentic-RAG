@@ -16,7 +16,7 @@ class ResearchQueryGenerator:
     def __init__(
             self,
             model_config: Dict[str, str],
-            number_of_queries: int = 8
+            number_of_queries: int
     ):
         """
         Initializes the ResearchQueryGenerator with the given model configuration and number of queries.
@@ -108,7 +108,7 @@ class GenerateTopicResearchQueriesNode:
 
 def get_generate_topic_research_queries_node(
         model_config: Dict[str, str],
-        number_of_queries: int = 2
+        number_of_queries: int
 ):
     """
     Creates and returns an instance of GenerateTopicResearchQueriesNode.
