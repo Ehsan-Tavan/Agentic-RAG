@@ -92,6 +92,11 @@ The final report will be:
 - **Saved to the specified markdown file** (e.g., `report.md` or your 
 custom path) for future reference.
 
+## Output
+The output of the Deep Research AI Agent for the topic `Detailed report on how to 
+build Agentic AI systems, design patterns and current frameworks` is stored in 
+the output folder as [report.md](output/report.md). 
+
 ## Configuration
 The Deep Research AI Agent is highly customizable through the [config.json](configs/config.yaml) file, 
 which controls both the language model and web search behavior. Below is 
