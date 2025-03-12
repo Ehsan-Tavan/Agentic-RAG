@@ -159,6 +159,7 @@ def final_section_writer_prompt_creator() -> ChatPromptTemplate:
              "     - Use simple and clear language.\n"
              "     - Focus on the core motivation for the report in **1-2 paragraphs**.\n"
              "     - Maintain a clear narrative arc.\n"
+             "     - **Do NOT** add Conclusion/Summary for 'Introduction' section.\n"
              "     - **Do NOT** include any structural elements (no lists, no tables).\n"
              "     - **No sources section** needed.\n"
              "   - **For Conclusion/Summary**:\n"
