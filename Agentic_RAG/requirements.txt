@@ -1,2 +1,9 @@
-langgraph==0.5.3
-langchain-core==0.3.68
+langgraph==0.6.2
+langchain-core==0.3.72
+langchain_milvus==0.2.1
+torch==2.7.1
+langchain_community==0.3.27
+bs4==0.0.2
+pymilvus==2.5.14
+langchain_openai==0.3.28
+langchain_milvus==0.2.1
