@@ -1,0 +1,15 @@
+data:
+  knowledgebase_base_file: "../data/web_content.json"
+
+embedding_model:
+  model_path: "../embedding_model/multilingual-e5-small"
+
+database:
+  db_name: "Agentic_Rag"
+  collection_name: "ai_post"
+  host: localhost
+  port: 19530
+
+chunker:
+  chunk_size: 500
+  chunk_overlap: 100
