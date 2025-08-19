@@ -13,3 +13,10 @@ database:
 chunker:
   chunk_size: 500
   chunk_overlap: 100
+
+llm:
+  model: "gpt-4o-mini"
+  model_provider: "openai"
+  api_key: "sk-***"
+  base_url: "https://api.openai.com/v1"
+  temperature: 0.0
