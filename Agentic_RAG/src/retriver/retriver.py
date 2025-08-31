@@ -1,4 +1,5 @@
 from typing import List, Optional, Union
+from langchain_core.tools.simple import Tool
 from langchain_core.documents import Document
 from langchain_milvus import Milvus
 from langchain_openai import OpenAIEmbeddings
@@ -103,7 +104,7 @@ def get_milvus_retriever(
     return vectorstore.as_retriever(search_kwargs=search_kwargs)
 
 
-def get_retriever_tool(retriever):
+def get_retriever_tool(retriever) -> Tool:
     retriever_tool = create_retriever_tool(
         retriever,
         "retrieve_blog_posts",
