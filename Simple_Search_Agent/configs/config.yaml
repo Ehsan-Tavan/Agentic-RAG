@@ -1,0 +1,13 @@
+llm:
+  model: "gpt-4o-mini"
+  model_provider: "openai"
+  api_key: "sk-proj-***"
+  base_url: "https://api.openai.com/v1"
+  temperature: 0.0
+
+
+search_tools:
+  tavily_search_api_key:
+    "tavily_search_api_key"
+  num_search_results:
+    2
