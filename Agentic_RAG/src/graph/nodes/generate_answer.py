@@ -1,4 +1,7 @@
+from langchain.prompts import PromptTemplate
 from langgraph.graph import MessagesState
+from langchain_core.output_parsers import StrOutputParser
+from langchain_openai import ChatOpenAI
 
 GENERATE_PROMPT = (
     "You are an assistant for question-answering tasks. "
@@ -10,14 +13,30 @@ GENERATE_PROMPT = (
 )
 
 
-def get_generate_answer_node(response_model):
+def get_generate_answer_node(
+        llm_config: dict,
+):
     """Generate an answer."""
+    model = ChatOpenAI(
+        temperature=llm_config["temperature"],
+        model=llm_config["model"],
+        streaming=True)
+
+    prompt_template = PromptTemplate(
+        template=GENERATE_PROMPT,
+        input_variables=["question", "context"]
+    )
 
     def _generate_answer_node(state: MessagesState):
+        print("==== [Generate Answer or Respond] ====")
+
         question = state["messages"][0].content
         context = state["messages"][-1].content
-        prompt = GENERATE_PROMPT.format(question=question, context=context)
-        response = response_model.invoke([{"role": "user", "content": prompt}])
+
+        rag_chain = prompt_template | model | StrOutputParser()
+
+        response = rag_chain.invoke({"context": context, "question": question})
+
         return {"messages": [response]}
 
     return _generate_answer_node

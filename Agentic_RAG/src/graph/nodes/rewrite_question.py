@@ -1,4 +1,5 @@
 from langgraph.graph import MessagesState
+from langchain_openai import ChatOpenAI
 
 
 REWRITE_PROMPT = (
@@ -11,13 +12,18 @@ REWRITE_PROMPT = (
 )
 
 
-def get_rewrite_question_node(response_model):
+def get_rewrite_question_node(
+        llm_config: dict
+):
     """Rewrite the original user question."""
+    model = ChatOpenAI(temperature=llm_config["temperature"], model=llm_config["model"], streaming=True)
 
     def _rewrite_question_node(state: MessagesState):
+        print("==== [QUERY REWRITE] ====")
         messages = state["messages"]
         question = messages[0].content
+
         prompt = REWRITE_PROMPT.format(question=question)
-        response = response_model.invoke([{"role": "user", "content": prompt}])
+        response = model.invoke([{"role": "user", "content": prompt}])
         return {"messages": [{"role": "user", "content": response.content}]}
     return _rewrite_question_node
