@@ -2,14 +2,11 @@ from abc import ABC, abstractmethod
 from typing import List
 from tqdm import tqdm
 from langchain_community.document_loaders import PDFPlumberLoader
-from langchain_community.embeddings import SentenceTransformerEmbeddings
-from langchain_openai import OpenAIEmbeddings
 from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from pymilvus import MilvusClient
+from langchain.embeddings.base import Embeddings
 
-
-from .embedding import EmbeddingModel
 
 
 class DocumentLoader(ABC):
@@ -47,7 +44,7 @@ class Vectorizer:
             self,
             source_uri: List[str],
             document_loader: DocumentLoader,
-            embedding_model: EmbeddingModel,
+            embedding_model: Embeddings,
             vector_db_client: VectorDBClient,
             chunk_size: int = 300,
             chunk_overlap: int = 50
