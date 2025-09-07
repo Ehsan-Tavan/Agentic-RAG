@@ -44,4 +44,6 @@ if __name__ == "__main__":
                             embedding_model=EMBEDDING_OBJ,
                             vector_db_client=DB_CLIENT_OBJ)
 
+    VECTORIZER.insert_to_vector_db(collection_name=CONFIG["database"]["collection_name"])
+
 

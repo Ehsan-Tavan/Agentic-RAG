@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
-from typing import List, Annotated, Optional
+from typing import List
+from tqdm import tqdm
 from langchain_community.document_loaders import PDFPlumberLoader
 from langchain_community.embeddings import SentenceTransformerEmbeddings
 from langchain_openai import OpenAIEmbeddings
@@ -87,21 +88,29 @@ class Vectorizer:
         text_splitter = self.create_text_splitter()
         return text_splitter.split_documents(documents)
 
-    def insert_to_vector_db(self, collection_name: str) -> None:
+    def insert_to_vector_db(self, collection_name: str, batch_size: int = 32) -> None:
         try:
             docs = self.process_documents()
             texts = [doc.page_content for doc in docs]
             metadatas = [doc.metadata for doc in docs]
-            embeddings = self.embedding_model.embed_documents(texts)
 
-            data = [
-                {"content": text, "metadata": metadata, "vector": embedding}
-                for text, metadata, embedding in zip(texts, metadatas, embeddings)
-            ]
+            total = len(texts)
+            print(f"📄 Total documents to insert: {total}")
 
-            self.vector_db_client.insert(collection_name=collection_name, data=data)
+            for i in tqdm(range(0, total, batch_size), desc="Embedding & Inserting", unit="batch"):
+                batch_texts = texts[i:i + batch_size]
+                batch_metadatas = metadatas[i:i + batch_size]
 
-            print(f"Inserted {len(data)} documents into collection {collection_name}")
+                batch_embeddings = self.embedding_model.embed_documents(batch_texts)
+
+                batch_data = [
+                    {"content": text, "metadata": metadata, "vector": embedding}
+                    for text, metadata, embedding in zip(batch_texts, batch_metadatas, batch_embeddings)
+                ]
+
+                self.vector_db_client.insert(collection_name=collection_name, data=batch_data)
+
+            print(f"✅ Inserted {total} documents into collection {collection_name}")
 
         except Exception as e:
             print(f"Failed to save data to Milvus: {str(e)}")
