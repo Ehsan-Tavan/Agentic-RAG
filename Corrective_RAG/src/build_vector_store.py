@@ -35,7 +35,7 @@ if __name__ == "__main__":
     )
 
     LOADER_OBJ = PDFDocumentLoader()
-    EMBEDDING_OBJ = SentenceTransformerEmbeddingModel(model_name=CONFIG["embedding_model"]["model_path"])
+    EMBEDDING_OBJ = SentenceTransformerEmbeddingModel(model_name=CONFIG["retriever"]["embedding_model_path"])
     DB_CLIENT_OBJ = MilvusVectorDBClient(uri=f"http://{CONFIG['database']['host']}:{CONFIG['database']['port']}",
                                          db_name=CONFIG["database"]["db_name"])
 
