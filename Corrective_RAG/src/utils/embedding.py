@@ -1,6 +1,5 @@
-from abc import ABC, abstractmethod
 from typing import List, Type, Dict
-from langchain.embeddings import SentenceTransformerEmbeddings
+from langchain_community.embeddings import SentenceTransformerEmbeddings
 from langchain_openai import OpenAIEmbeddings
 from langchain.embeddings.base import Embeddings
 
