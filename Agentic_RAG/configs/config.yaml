@@ -1,0 +1,22 @@
+data:
+  knowledgebase_base_file: "../data/web_content.json"
+
+embedding_model:
+  model_path: "../embedding_model/multilingual-e5-small"
+
+database:
+  db_name: "Agentic_Rag"
+  collection_name: "ai_post"
+  host: localhost
+  port: 19530
+
+chunker:
+  chunk_size: 500
+  chunk_overlap: 100
+
+llm:
+  model: "gpt-4o-mini"
+  model_provider: "openai"
+  api_key: "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"
+  base_url: "https://api.openai.com/v1"
+  temperature: 0.0
