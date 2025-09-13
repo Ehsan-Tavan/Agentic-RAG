@@ -1,0 +1,29 @@
+data:
+  knowledgebase_base_file:
+    - "../data/Newwhitepaper_Agents2.pdf"
+
+retriever:
+  embedding_model_path: "***"
+  embedding_type: "sentence-transformer"
+  search_kwargs:
+    k: 3
+
+database:
+  db_name: "Corrective_Rag"
+  collection_name: "ai_post_3"
+  host: localhost
+  port: 19530
+
+chunker:
+  chunk_size: 500
+  chunk_overlap: 100
+
+llm:
+  model: "gpt-4o-mini"
+  model_provider: "openai"
+  api_key: "sk-proj-***"
+  base_url: "https://api.openai.com/v1"
+  temperature: 0.0
+
+search:
+  tavily_api: "tvly-dev-***"
