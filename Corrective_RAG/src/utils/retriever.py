@@ -1,5 +1,6 @@
 from typing import Optional, Dict, Literal
-from langchain.vectorstores import Milvus, VectorStoreRetriever
+from langchain.vectorstores import Milvus
+from langchain.vectorstores.base import VectorStoreRetriever
 from langchain.embeddings.base import Embeddings
 from .embedding import EmbeddingFactory
 
