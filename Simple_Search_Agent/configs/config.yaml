@@ -1,13 +1,13 @@
 llm:
   model: "gpt-4o-mini"
   model_provider: "openai"
-  api_key: "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"
+  api_key: "sk-proj-***"
   base_url: "https://api.openai.com/v1"
   temperature: 0.0
 
 
 search_tools:
   tavily_search_api_key:
-    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
+    tvly-***
   num_search_results:
     2
