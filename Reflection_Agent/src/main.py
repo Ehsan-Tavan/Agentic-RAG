@@ -37,3 +37,8 @@ if __name__ == "__main__":
     print(a["user_request"])
     print(a["draft"].code)
     print(a["draft"].explanation)
+
+    print(a["critique"].has_errors)
+    print(a["critique"].is_efficient)
+    print(a["critique"].suggested_improvements)
+    print(a["critique"].critique_summary)
