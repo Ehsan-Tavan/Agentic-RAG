@@ -1,4 +1,6 @@
 from langgraph.graph import StateGraph, START, END
+from langchain_core.runnables.graph_mermaid import MermaidDrawMethod
+import pyppeteer
 
 from Reflection_Agent.src.graph.state import ReflectionState
 from Reflection_Agent.src.graph.nodes import get_generation_node, get_critic_node, get_refiner_node
@@ -20,5 +22,11 @@ def create_graph(config: dict):
     workflow.add_edge("refiner", END)
 
     app = workflow.compile()
+
+    # plot = app.get_graph(xray=True).draw_mermaid_png(
+    #     draw_method=MermaidDrawMethod.PYPPETEER,
+    # )
+    # with open("../images/reflection_agent.png", "wb") as fp:
+    #     fp.write(plot)
 
     return app
